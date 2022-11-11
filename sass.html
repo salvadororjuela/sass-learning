@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <title>Sass Learning</title>
+</head>
+<body>
+    <div class="fluid-container">
+        <h3>Hello World</h3>
+
+        <p>This is a paragraph.</p>
+
+        <ul>
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">SASS</a></li>
+        </ul>
+        <br>
+        <div id="partials"></div>
+        <hr>
+        <div id="mixin">mixin Example</div>
+        <hr>
+        <div>
+            <h3 class="text-primary text-center">@mixin Passing Arguments</h3>
+            <div id="mixinargs">Passing args to mixin</div>
+        </div>
+        <hr>
+        <div class="row">
+            <h3 class="text-primary text-center">@extend and Inheritance</h3>
+            <pre>
+                The @extend directive lets you share a set of CSS properties from one selector to another.
+        The @extend directive is useful if you have almost identically styled elements that only differ in some 
+        small details.
+        The following Sass example first creates a basic style for buttons (this style will be used for most buttons). 
+        Then, we create one style for a "Report" button and one style for a "Submit" button. Both "Report" and "Submit" 
+        button inherit all the CSS properties from the .button-basic class, through the @extend directive. In addition, 
+        they have their own colors defined:
+            </pre>
+            <div class="col-xs-12 text-center">
+                <button class="btnreport">Report</button>
+                <button class="btnsubmit">Submit</button>
+            </div>
+            <pre>
+                By using the @extend directive, you do not need to specify several classes for an element 
+                in your HTML code, like this: &ltbutton class="button-basic button-report"&gt Report this</button>. 
+                You just need to specify .button-report to get both sets of styles.
+                The @extend directive helps keep your Sass code very DRY.
+            </pre>
+        </div>
+        <hr>
+        <div class="row">
+            <h3 class="text-primary text-center">@if, @else, if, @else</h3>
+            <div class="col-xs-2 lightborder"></div>
+            <div class="col-xs-2 mediumborder"></div>
+            <div class="col-xs-2 heavyborder"></div>
+            <div class="col-xs-2 noborder"></div>
+        </div>
+        <hr>
+
+        <div class="row text-primary text-center">
+            <h3>Use @for to Create a Sass Loop</h3>
+            <p class="text-1">Hello</p>
+            <p class="text-2">Hello</p>
+            <p class="text-3">Hello</p>
+            <p class="text-4">Hello</p>
+            <p class="text-5">Hello</p>
+        </div>
+        <hr>
+
+        <div>
+            <div class="text-primary text-center">
+                <h3>Use @each to Map Over Items in a List</h3>
+            </div>
+            <pre>
+                Sass also offers the @each directive which loops over each item in a list or map. On each iteration, 
+                the variable gets assigned to the current value from the list or map.
+
+                <b>@each $color in blue, red, green {
+                  .#{$color}-text {color: $color;}
+                }
+                A map has slightly different syntax. Here's an example:
+                
+                $colors: (color1: blue, color2: red, color3: green);
+                
+                @each $key, $color in $colors {
+                  .#{$color}-text {color: $color;}
+                }</b>
+
+                Note that the $key variable is needed to reference the keys in the map. Otherwise, the compiled CSS 
+                would have color1, color2... in it. Both of the above code examples are converted into the following CSS:
+                
+                <b>.blue-text {
+                  color: blue;
+                }
+                
+                .red-text {
+                  color: red;
+                }
+                
+                .green-text {
+                  color: green;
+                }</b>
+            </pre>
+            <br>
+            <div class="blue-bg"></div>
+            <div class="black-bg"></div>
+            <div class="red-bg"></div>
+        </div>
+        <hr>
+
+        <div>
+            <div class="text-primary text-center">
+                <h3>Apply a Style Until a Condition is Met with @while</h3>
+            </div>
+            <pre>
+                The @while directive is an option with similar functionality to the JavaScript while loop. It creates CSS rules until a condition is met.
+
+The @for challenge gave an example to create a simple grid system. This can also work with @while.
+
+$x: 1;
+@while $x &lt 13 {
+  .col-#{$x} { width: 100%/12 * $x;}
+  $x: $x + 1;
+}
+First, define a variable $x and set it to 1. Next, use the @while directive to create the grid system while $x is less than 13. 
+After setting the CSS rule for width, $x is incremented by 1 to avoid an infinite loop.
+            </pre>
+            <br>
+            <pre>
+                Use @while to create a series of classes with different font-sizes.
+
+There should be 5 different classes from text-1 to text-5. Then set font-size to 15px multiplied by the current index number. 
+Make sure to avoid an infinite loop!
+            </pre>
+            <p class="text-1">Hello</p>
+            <p class="text-2">Hello</p>
+            <p class="text-3">Hello</p>
+            <p class="text-4">Hello</p>
+            <p class="text-5">Hello</p>
+        </div>
+        <hr>
+
+        <div>
+            <div class="text-primary text-center">
+                <h3>Extend One Set of CSS Styles to Another Element</h3>
+            </div>
+            <pre>
+                Sass has a feature called extend that makes it easy to borrow the CSS rules from one element and build upon them in another.
+
+                For example, the below block of CSS rules style a .panel class. It has a background-color, height and border.
+
+.panel{
+  background-color: red;
+  height: 70px;
+  border: 2px solid green;
+}
+Now you want another panel called .big-panel. It has the same base properties as .panel, but also needs a width and font-size. It's possible to copy and paste the initial CSS rules from .panel, but the code becomes repetitive as you add more types of panels. The extend directive is a simple way to reuse the rules written for one element, then add more for another:
+
+.big-panel{
+  @extend .panel;
+  width: 150px;
+  font-size: 2em;
+}
+The .big-panel will have the same properties as .panel in addition to the new styles.
+            </pre>
+            <div class="info-important">
+                <p>This is an important post. It should extend the class ".info" and have its own CSS styles.</p>
+              </div>
+              
+              <div class="info">
+                <p>This is a simple post. It has basic styling and can be extended for other uses.</p>
+              </div>
+        </div>
+        <hr>
+        
+    </div>
+</body>
+</html>

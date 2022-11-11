@@ -1,0 +1,150 @@
+@import "reset";
+@import "_colors";
+
+body {
+    font-family: Helvetica, sans-serif;
+    font-size: 18px;
+    color: red;
+}
+
+#partials {
+    color: $myPink;
+    background-color: $myBlue;
+    border: 5px solid $myGreen;
+    width: $divWidth;
+    height: $divHeight;
+}
+
+
+
+// @mixin Passing Arguments
+@mixin mixinexample {
+    color:$myBlue;
+    border: 5px solid $myPink;
+    background-color: $myGreen;
+    width: $divWidth;
+    height: $divHeight;
+}
+
+@mixin alternatedimensions{
+    width: 500px;
+    height: 150px;
+    background-color: purple;
+}
+
+@mixin mixinarguments($size, $texture, $colorborder) {
+    border: $size $texture $colorborder;
+    @include alternatedimensions;
+}
+
+#mixin {
+    margin: 25px;
+    padding: 10px;
+    @include mixinexample;
+}
+
+#mixinargs {
+    @include mixinarguments(10px, dotted, black);
+}
+
+
+
+//@extend and Inheritance
+.button-basic {
+    border: none;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btnreport {
+    @extend .button-basic;
+    background-color: orangered
+}
+
+.btnsubmit {
+    @extend .button-basic;
+    background-color: green;
+    color: white;
+}
+
+
+
+//@if, @else, if, @else
+@mixin generaldiv {
+    height: $divHeight;
+    width: $divWidth;
+    margin: 10px 50px;
+}
+
+@mixin border-selection($val) {
+    @if $val == light {
+        border: 1px solid black;
+        background-color: pink;
+    }
+    @else if $val == medium {
+        border: 3px solid orange;
+        background-color: lightblue;
+    }
+    @else if $val == heavy {
+        border: 5px solid blue;
+        background-color: yellowgreen;
+    }
+    @else {
+        border: none;
+        background-color: black
+    }
+}
+
+.lightborder {
+    @include border-selection(light);
+    @include generaldiv;
+}
+
+.mediumborder {
+    @include border-selection(medium);
+    @include generaldiv;
+}
+
+.heavyborder {
+    @include border-selection(heavy);
+    @include generaldiv;
+}
+
+.noborder {
+    @include border-selection(none);
+    @include generaldiv;
+}
+
+
+
+//@for to Create a Sass Loop
+@for $j from 1 to 6 {
+    .text-#{$j} {font-size: 15px * $j}
+}
+
+
+
+//Use @each to Map Over Items in a List
+@each $color in blue, black, red {
+    .#{$color}-bg {
+        background-color: $color;
+        height: $divHeight;
+        width: 100%;
+    }
+}
+
+
+
+// Extend One Set of CSS Styles to Another Element
+.info{
+    width: 200px;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+.info-important {
+    @extend .info;
+    background-color: magenta;
+}
